@@ -1,12 +1,14 @@
-def forward_elimination(A, b):
+def forward_elimination(A: list[list], b: list) -> 'list[list[float]], dict[tuple[int, int], float]':
+    
     m, n = len(A) , len(A[0])
     # make augmented matrix [A b]
     Ab = [A[i] + [b[i]] for i in range(m)]
     pivots = {}
     current_row = 0
     for current_col in range(n):
+        pivot = None
         for row in range(current_row, m):
-            pivot = None
+            #pivot = None
             # search all row below untill pivot found 
             if Ab[row][current_col] != 0:
                 pivot = Ab[row][current_col]
@@ -21,10 +23,13 @@ def forward_elimination(A, b):
                 for i in range(current_row + 1, m):
                     factor = Ab[i][current_col]
                     Ab[i] = [ Ab[i][j] - factor * Ab[current_row][j] for j in range(n + 1) ]
+                # avoid multiple processing of same column
+                break
 
-            #if pivot found current_row and current_col increamented
-            if pivot != None:
-                current_row += 1
+        #if pivot found, current_row and current_col increamented,
+        # if pivot is not found only increment column as pivot could be in next column if first col is all zero
+        if pivot != None:
+            current_row += 1
 
     return Ab, pivots
 
