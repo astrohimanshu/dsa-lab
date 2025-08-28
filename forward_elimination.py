@@ -11,18 +11,23 @@ def forward_elimination(A: list[list], b: list) -> 'list[list[float]], dict[tupl
             #pivot = None
             # search all row below untill pivot found 
             if Ab[row][current_col] != 0:
+
                 pivot = Ab[row][current_col]
-                pivots[(row, current_col)] = Ab[row][current_col]
+                
                 # pivot found swap this row with current row 
                 Ab[current_row], Ab[row] = Ab[row], Ab[current_row]
+
+                # save pivot positions
+                pivots[(row, current_col)] = Ab[row][current_col]
 
                 # normalize this row 
                 Ab[current_row] = [x / Ab[current_row][current_col] for x in Ab[current_row]]
 
-                # subtract from below rows
+                # elimination of rows below current row
                 for i in range(current_row + 1, m):
                     factor = Ab[i][current_col]
                     Ab[i] = [ Ab[i][j] - factor * Ab[current_row][j] for j in range(n + 1) ]
+                    
                 # avoid multiple processing of same column
                 break
 
