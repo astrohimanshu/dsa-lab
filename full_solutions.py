@@ -25,8 +25,8 @@ def full_solutions(Ab, pivots):
         x = [0] * n
         x[j] = 1
         for z,y in enumerate(pivot_cols):
-            if y != j: #pivot column
-                x[y] = -Ab[pivot_rows[z]][j]
+            #if y != j: #pivot column
+            x[y] = -Ab[pivot_rows[z]][j]
         xs.append(x)
     return xp, xs
 
