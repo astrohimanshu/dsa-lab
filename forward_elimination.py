@@ -18,7 +18,7 @@ def forward_elimination(A: list[list], b: list) -> 'list[list[float]], dict[tupl
                 Ab[current_row], Ab[row] = Ab[row], Ab[current_row]
 
                 # save pivot positions
-                pivots[(row, current_col)] = Ab[row][current_col]
+                pivots[(current_row, current_col)] = 1.0
 
                 # normalize this row 
                 Ab[current_row] = [x / Ab[current_row][current_col] for x in Ab[current_row]]
@@ -41,10 +41,11 @@ def forward_elimination(A: list[list], b: list) -> 'list[list[float]], dict[tupl
                                                     
 if __name__ == '__main__':
     from tabulate import tabulate
-    A = [[1,3,0,2],
-         [0,0,1,4],
-         [1,3,1,6]]
-    b = [1,6,7]
+    A = [[1,2,1,0],
+         [2,4,4,8],
+         [4,8,6,8]]
+
+    b = [4,2,10]
     R, pivots = forward_elimination(A,  b)
     print("R is \n")
     print(tabulate(R,tablefmt='fancy_grid'))
